@@ -350,26 +350,91 @@
         .about-image {
             width: 100%;
             height: 600px;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
-            border-radius: 30px;
-            border: 1px solid rgba(255, 215, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 8rem;
             position: relative;
-            overflow: hidden;
         }
 
-        .about-image::before {
+        .image-wrapper {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            padding: 8px;
+            background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.4),
+                        0 0 100px rgba(255, 215, 0, 0.2),
+                        inset 0 0 30px rgba(255, 215, 0, 0.1);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .image-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #000;
+            position: relative;
+            border: 4px solid #000;
+        }
+
+        .image-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .image-wrapper:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-inner::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
-            animation: shimmerAcross 3s linear infinite;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(255, 215, 0, 0.1) 50%, transparent 100%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-wrapper:hover .image-inner::before {
+            opacity: 1;
+        }
+
+        .image-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .profile-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
+            font-size: 8rem;
         }
 
         @keyframes shimmerAcross {
@@ -883,6 +948,16 @@
                 height: 400px;
             }
 
+            .image-wrapper {
+                width: 300px;
+                height: 300px;
+            }
+
+            .image-glow {
+                width: 350px;
+                height: 350px;
+            }
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -1005,7 +1080,15 @@
                 <h2 class="section-title">About Me</h2>
             </div>
             <div class="about-content">
-                <div class="about-image">💻</div>
+                <div class="about-image">
+                    <div class="image-glow"></div>
+                    <div class="image-wrapper">
+                        <div class="image-inner">
+                            <!-- Replace the src below with your actual image URL -->
+                            <img src="profile.JPG" alt="Kartikey Sharma" onerror="this.parentElement.innerHTML='<div class=\'profile-placeholder\'>💻</div>'">
+                        </div>
+                    </div>
+                </div>
                 <div class="about-text">
                     <h3>Crafting Digital Experiences</h3>
                     <p>I'm a Computer Science and Engineering student specializing in AI/ML with a passion for mobile app development. With hands-on experience across Android, Flutter, and AI technologies, I create applications that solve real-world problems.</p>
@@ -1166,8 +1249,8 @@
                         <h3>Trikon</h3>
                         <p>Event Management application with Firebase-based data architecture for QR check-ins and attendance tracking. Features real-time user data dashboards for comprehensive event insights.</p>
                         <div class="project-links">
-                            <a href="https://github.com/Kartikey03/Trikon2.0" class="project-link">GitHub</a>
-                            <a href="https://drive.google.com/file/d/1UIUrbCQL1YTTWCgy-cTDbNLl6SYHINeW/view?usp=sharing" class="project-link">Download App</a>
+                            <a href="#" class="project-link">GitHub</a>
+                            <a href="#" class="project-link">Download App</a>
                         </div>
                     </div>
                 </div>
@@ -1177,8 +1260,8 @@
                         <h3>TRIX - The AI Chatbot</h3>
                         <p>Retrieval-augmented chatbot using LangChain and FAISS for intelligent document retrieval. Implemented Flask backend with AI-driven responses for enhanced user interaction.</p>
                         <div class="project-links">
-                            <a href="https://github.com/Kartikey03/trikon-2" class="project-link">GitHub</a>
-                            <a href="https://www.intelliamiet.in/trikon2025/onepage" class="project-link">Live Demo</a>
+                            <a href="#" class="project-link">GitHub</a>
+                            <a href="#" class="project-link">Live Demo</a>
                         </div>
                     </div>
                 </div>
@@ -1188,7 +1271,7 @@
                         <h3>Pathology Management Software</h3>
                         <p>Centralized system for record-keeping and billing using MySQL backend. Streamlined data management workflows for healthcare facilities with intuitive interface.</p>
                         <div class="project-links">
-                            <a href="https://github.com/Kartikey03/Pathology-Management-" class="project-link">GitHub</a>
+                            <a href="#" class="project-link">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -1211,11 +1294,11 @@
                     </div>
                     <div class="contact-item">
                         <h4>LinkedIn</h4>
-                        <a href="https://linkedin.com/in/kartikeysharma03" target="_blank">Connect on LinkedIn</a>
+                        <a href="https://linkedin.com/in/yourprofile" target="_blank">Connect</a>
                     </div>
                     <div class="contact-item">
                         <h4>GitHub</h4>
-                        <a href="https://github.com/kartikey03" target="_blank">View Profile</a>
+                        <a href="https://github.com/yourprofile" target="_blank">View Code</a>
                     </div>
                 </div>
                 <a href="mailto:info.kartik2003@gmail.com" class="btn btn-primary">Send a Message</a>
@@ -1259,10 +1342,11 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
                 if (target) {
-                    const offset = 80;
-                    const targetPosition = target.offsetTop - offset;
+                    const navbarHeight = 80;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
